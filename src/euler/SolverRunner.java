@@ -24,7 +24,7 @@ public class SolverRunner
         try{
           runner.run("euler.Solver" + args[i]);
         }catch(Exception e){
-          e.printStackTrace();
+          //e.printStackTrace();
         }
       }
     }else{
@@ -37,7 +37,12 @@ public class SolverRunner
     Class<?> cls = Class.forName(clsname);
     Solver solver = (Solver)cls.newInstance();
     long time = System.nanoTime();
-    String out = solver.solve();
+    String out = "null";
+    try{
+      out = solver.solve();
+    }catch(Exception e){
+      e.printStackTrace();
+    }
     long nano = System.nanoTime() - time;
     System.out.println(solver.getClass().getSimpleName() + " (" + fmt.format(nano/1000000.) + "ms): " + out);
   }
@@ -60,6 +65,7 @@ public class SolverRunner
       try{
         run(clsname);
       }catch(Exception e){
+        //e.printStackTrace();
       }
     }
   }
