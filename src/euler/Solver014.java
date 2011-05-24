@@ -1,33 +1,36 @@
 package euler;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public class Solver014 implements Solver
 {
+  private static final int LEN = 1000000;
+
   public String solve()
   {
     long max = 0;
-    long num = 0;
-    Map<Long, Long> map = new HashMap<Long, Long>();
+    int  num = 0;
+    long[] memo = new long[LEN];
 
-    for(long i=2; i<1000000; i++){
+    for(int i=1; i<LEN; i++){
       long v = i;
       long c = 0;
-      while(v > 1){
-        if(map.containsKey(v)){
-          c += map.get(v).intValue();
+      while(true){
+        if(v < (long)i){
+          c += memo[(int)v];
           break;
         }else{
           c++;
-          if(v % 2 == 0){
-            v = v / 2;
+          if(v % 2l == 0){
+            v = v / 2l;
+            if(v == 1l){
+              c++;
+              break;
+            }
           }else{
             v = 3 * v + 1;
           }
         }
       }
-      map.put(i, c);
+      memo[i] = c;
       if(c > max){
         max = c;
         num = i;

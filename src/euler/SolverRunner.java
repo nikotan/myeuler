@@ -1,7 +1,6 @@
 package euler;
 
 import java.io.IOException;
-import java.text.DecimalFormat;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -14,8 +13,6 @@ import javax.tools.ToolProvider;
 
 public class SolverRunner
 {
-  private DecimalFormat fmt = new DecimalFormat("0.000");
-
   public static void main(String[] args)
   {
     SolverRunner runner = new SolverRunner();
@@ -44,7 +41,11 @@ public class SolverRunner
       e.printStackTrace();
     }
     long nano = System.nanoTime() - time;
-    System.out.println(solver.getClass().getSimpleName() + " (" + fmt.format(nano/1000000.) + "ms): " + out);
+    System.out.println(
+        solver.getClass().getSimpleName() +
+        " (" + String.format("%10.3f", nano/1000000.) + "ms): " +
+        out
+    );
   }
 
   public void runAll()
