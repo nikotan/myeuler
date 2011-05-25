@@ -36,7 +36,7 @@ public class Solver019 implements Solver
         days += D_OF_M[i - 1];
       }
     }
-    days += d - 1;
+    days += (d - 1);
     return days;
   }
   

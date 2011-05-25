@@ -25,6 +25,8 @@ public class Solver019Test
     Solver019 solver = new Solver019();
     assertEquals(366, solver.getDays(1901, 1, 1));
     assertEquals(397, solver.getDays(1901, 2, 1));
+    assertEquals(  6, solver.getDays(1900, 1, 7));
+    assertEquals( 60, solver.getDays(1900, 3, 1));
   }
 
 }

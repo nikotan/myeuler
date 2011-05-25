@@ -76,6 +76,7 @@ public class Solver011 implements Solver
       }
     }catch(IOException e){
       e.printStackTrace();
+    }finally{
       if(br!=null){
         try{
           br.close();
