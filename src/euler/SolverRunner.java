@@ -18,34 +18,41 @@ public class SolverRunner
     SolverRunner runner = new SolverRunner();
     if(args.length > 0){
       for(int i=0; i<args.length; i++){
-        try{
-          runner.run("euler.Solver" + args[i]);
-        }catch(Exception e){
-          //e.printStackTrace();
-        }
+        runner.run(args[i]);
       }
     }else{
       runner.runAll();
     }
   }
   
-  public void run(String clsname) throws Exception
+  public void run(String clsname)
   {
-    Class<?> cls = Class.forName(clsname);
-    Solver solver = (Solver)cls.newInstance();
-    long time = System.nanoTime();
-    String out = "null";
+    Solver solver = null;
     try{
-      out = solver.solve();
-    }catch(Exception e){
-      e.printStackTrace();
+      Class<?> cls = Class.forName(clsname);
+      Object obj = cls.newInstance();
+      if(obj instanceof Solver){
+        solver = (Solver)cls.newInstance();
+      }
+    }catch(ClassNotFoundException e){
+    }catch(IllegalAccessException e){
+    }catch(InstantiationException e){
     }
-    long nano = System.nanoTime() - time;
-    System.out.println(
-        solver.getClass().getSimpleName() +
-        " (" + String.format("%10.3f", nano/1000000.) + "ms): " +
-        out
-    );
+    if(solver != null){
+      String out = "null";
+      long time = System.nanoTime();
+      try{
+        out = solver.solve();
+      }catch(Exception e){
+        e.printStackTrace();
+      }
+      long nano = System.nanoTime() - time;
+      System.out.println(
+          solver.getClass().getSimpleName() +
+          " (" + String.format("%10.3f", nano/1000000.) + "ms): " +
+          out
+      );
+    }
   }
 
   public void runAll()
@@ -57,18 +64,29 @@ public class SolverRunner
 
     Iterable<JavaFileObject> list = null;
     try{
-      list = fm.list(StandardLocation.CLASS_PATH, "euler", kinds, false);
+      list = fm.list(StandardLocation.CLASS_PATH, "euler", kinds, true);
     }catch(IOException e){
       e.printStackTrace();
     }
     for(JavaFileObject f : list){
-      String clsname = "euler." + f.getName().substring(0, f.getName().lastIndexOf('.'));
-      try{
-        run(clsname);
-      }catch(Exception e){
-        //e.printStackTrace();
-      }
+      run(getClassname(f.toUri().getPath()));
     }
+  }
+  
+  public String getClassname(String path)
+  {
+    String[] arr = path.substring(0, path.lastIndexOf('.')).split("/");
+    int idx = arr.length - 1;
+    StringBuffer sb = new StringBuffer();
+    while(true){
+      sb.insert(0, arr[idx]);
+      if(arr[idx].equals("euler")){
+        break;
+      }
+      sb.insert(0, ".");
+      idx --;
+    }
+    return sb.toString();
   }
   
 }
