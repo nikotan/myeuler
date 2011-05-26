@@ -1,28 +1,25 @@
-package euler.solver20;
+package euler.solver020;
 
 import euler.Solver;
 
 
-public class Solver016 implements Solver
+public class Solver020 implements Solver
 {
-  private static final int TIMES = 1000;
-
   public String solve()
   {
-    int dim = 4 * (int)Math.ceil(TIMES/10.);
-    int[] d  = new int[dim];
+    int[] d = new int[200];
     int i, j, tmp;
     
-    for(i=0; i<dim; i++){
-      d[i]  = -1;
+    for(i=0; i<d.length; i++){
+      d[i] = -1;
     }
     d[0] = 1;
-
-    for(i=0; i<TIMES; i++){
-      for(j=0; j<dim; j++){
-        if(d[j] >= 0) d[j] = d[j] << 1;
+    
+    for(i=2; i<=100; i++){
+      for(j=0; j<d.length; j++){
+        if(d[j] >= 0) d[j] *= i;
       }
-      for(j=0; j<dim-1; j++){
+      for(j=0; j<d.length; j++){
         if(d[j] >= 0){
           tmp = d[j] / 10;
           d[j] %= 10;
@@ -33,9 +30,9 @@ public class Solver016 implements Solver
         }
       }
     }
-
+    
     int sum = 0;
-    for(i=0; i<dim; i++){
+    for(i=0; i<d.length; i++){
       if(d[i] < 0) break;
       sum += d[i];
     }

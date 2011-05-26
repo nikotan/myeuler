@@ -1,4 +1,4 @@
-package euler.solver20;
+package euler.solver020;
 
 import euler.Solver;
 

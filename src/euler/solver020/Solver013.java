@@ -1,4 +1,4 @@
-package euler.solver20;
+package euler.solver020;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -14,7 +14,7 @@ public class Solver013 implements Solver
 
     BufferedReader br = null;
     try{
-      br = new BufferedReader(new FileReader("src/euler/solver20/data013.txt"));
+      br = new BufferedReader(new FileReader("src/euler/solver020/data013.txt"));
       String line;
       while((line=br.readLine())!=null){
         sum += Long.parseLong(line.substring(0, 14));
