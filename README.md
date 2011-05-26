@@ -1,3 +1,4 @@
-## nikotan/myeuler
+nikotan/myeuler
+===============
 
-"[Project Euler](http://projecteuler.net/)" solvers written in Java.
+My own solvers for "[Project Euler](http://projecteuler.net/)" written in Java.
