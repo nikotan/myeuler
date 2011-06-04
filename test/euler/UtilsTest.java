@@ -1,4 +1,4 @@
-package euler.solver020;
+package euler;
 
 import static org.junit.Assert.*;
 
@@ -9,7 +9,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-public class Solver005Test
+public class UtilsTest
 {
 
   @Before
@@ -25,12 +25,11 @@ public class Solver005Test
   @Test
   public void testFactorize()
   {
-    Solver005 solver = new Solver005();
     Map<Integer, Integer> map = new HashMap<Integer, Integer>();
-
-    solver.factorize(8, map);
-    assertEquals(1, map.size());
-    assertEquals(3, map.get(2).intValue());
+    Utils.factorize(18, map);
+    assertEquals(2, map.size());
+    assertEquals(1, map.get(new Integer(2)).intValue());
+    assertEquals(2, map.get(new Integer(3)).intValue());
   }
 
 }

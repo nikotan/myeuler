@@ -5,6 +5,7 @@ import java.util.Iterator;
 import java.util.Map;
 
 import euler.Solver;
+import euler.Utils;
 
 public class Solver005 implements Solver
 {
@@ -15,7 +16,7 @@ public class Solver005 implements Solver
     Map<Integer, Integer> res = new HashMap<Integer, Integer>();
     for(int i=2; i<=max; i++){
       Map<Integer, Integer> map = new HashMap<Integer, Integer>();
-      factorize(i, map);
+      Utils.factorize(i, map);
       Iterator<Integer> it = map.keySet().iterator();
       while(it.hasNext()){
         int f = it.next().intValue();
@@ -36,22 +37,5 @@ public class Solver005 implements Solver
       out *= Math.round(Math.pow(f, c));
     }
     return Integer.toString(out);
-  }
-
-  public void factorize(int n, Map<Integer, Integer> map)
-  {
-    for(int i=2; i<=n; i++){
-      if(n%i == 0){
-        Integer cnt = map.get(i);
-        if(cnt == null){
-          map.put(i, 1);
-        }else{
-          map.put(i, cnt.intValue()+1);
-        }
-        if(n == i) break;
-        factorize(n/i, map);
-        break;
-      }
-    }
   }
 }
